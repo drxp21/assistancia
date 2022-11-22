@@ -1,0 +1,25 @@
+models:
+  Demande:
+    status: enum:processed,pending,rejected
+    contenu: longtext
+    auteur_id: id foreign
+    admin_id: id foreign
+    relationships:
+      belongsTo: User
+
+
+  Entreprise:
+    content: longtext
+    published_at: nullable timestamp
+    relationships:
+      hasMany: User
+
+controllers:
+  Demande:
+    resource
+
+  User:
+    resource
+
+  Entreprise:
+    resource
