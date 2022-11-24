@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Models\Demande;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,6 +19,14 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
+
+    // Demande::create([
+    //     "status"=>"en_attente",
+    //     "contenu"=>"EKIP ekip Ekip",
+    //     "auteur_id"=>"1",
+    //     "admin_id"=>"2",
+
+    // ]);
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -30,13 +41,31 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        switch (Auth::user()->role) {
+            case 'client':
+                return Inertia::render('Client/Dashboard');
+                break;
+            case 'admin':
+                return Inertia::render('Admin/Dashboard');
+
+                break;
+            case 'super-admin':
+                return Inertia::render('SuperAdmin/Dashboard');
+                break;
+
+            default:
+                abort(404);
+                break;
+        }
     })->name('dashboard');
+
+
+    Route::resource('demande', App\Http\Controllers\DemandeController::class);
+
+    Route::resource('user', App\Http\Controllers\UserController::class);
+
+    Route::resource('entreprise', App\Http\Controllers\EntrepriseController::class);
 });
 
 
-Route::resource('demande', App\Http\Controllers\DemandeController::class);
 
-Route::resource('user', App\Http\Controllers\UserController::class);
-
-Route::resource('entreprise', App\Http\Controllers\EntrepriseController::class);

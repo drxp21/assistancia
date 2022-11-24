@@ -26,7 +26,7 @@ class DemandeFactory extends Factory
     public function definition()
     {
         return [
-            'status' => $this->faker->randomElement(["en_cours","en_cours","traite","rejete"]),
+            'status' => $this->faker->randomElement(["en_cours","en_attente","traite","rejete"]),
             'contenu' => $this->faker->text,
             'auteur_id' => User::factory(),
             'admin_id' => User::factory(),

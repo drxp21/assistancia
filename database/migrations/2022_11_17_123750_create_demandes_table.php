@@ -17,10 +17,15 @@ class CreateDemandesTable extends Migration
 
         Schema::create('demandes', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ["en_cours","en_attente","traite","rejete"]);
+            $table->enum('status', ["en_cours", "en_attente", "traite", "rejete"]);
             $table->longText('contenu');
-            $table->foreignId('auteur_id')->constrained();
-            $table->foreignId('admin_id')->constrained();
+
+            $table->unsignedBigInteger('admin_id');
+            $table->foreign('admin_id')->references('id')->on('users');
+
+            $table->unsignedBigInteger('auteur_id');
+            $table->foreign('auteur_id')->references('id')->on('users');
+
             $table->timestamps();
         });
 
