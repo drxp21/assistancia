@@ -19,8 +19,9 @@ class CreateDemandesTable extends Migration
             $table->id();
             $table->enum('status', ["en_cours", "en_attente", "traite", "rejete"]);
             $table->longText('contenu');
+            $table->string('objet');
 
-            $table->unsignedBigInteger('admin_id');
+            $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('users');
 
             $table->unsignedBigInteger('auteur_id');

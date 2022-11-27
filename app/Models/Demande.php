@@ -32,18 +32,5 @@ class Demande extends Model
         'admin_id' => 'integer',
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 
-    public function auteur()
-    {
-        return $this->belongsTo(Auteur::class);
-    }
-
-    public function admin()
-    {
-        return $this->belongsTo(Admin::class);
-    }
 }

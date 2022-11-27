@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DemandeController;
 use App\Models\Demande;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,13 +22,6 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
 
-    // Demande::create([
-    //     "status"=>"en_attente",
-    //     "contenu"=>"EKIP ekip Ekip",
-    //     "auteur_id"=>"1",
-    //     "admin_id"=>"2",
-
-    // ]);
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -45,10 +40,25 @@ Route::middleware([
             case 'client':
                 return Inertia::render('Client/Dashboard');
                 break;
+
+
             case 'admin':
-                return Inertia::render('Admin/Dashboard');
+
+                $all_demandes=Demande::where('admin_id',null)->latest()->get();
+                foreach ($all_demandes as $demande ) {
+                    $demande->auteur=User::find($demande->auteur_id)->name;
+                }
+
+                $mes_demandes=Demande::where('admin_id',Auth::user()->id)->latest()->get();
+                foreach ($mes_demandes as $demande ) {
+                    $demande->auteur=User::find($demande->auteur_id)->name;
+                }
+
+                return Inertia::render('Admin/Dashboard',['all_demandes'=>$all_demandes,'mes_demandes'=>$mes_demandes]);
 
                 break;
+
+
             case 'super-admin':
                 return Inertia::render('SuperAdmin/Dashboard');
                 break;
@@ -60,11 +70,12 @@ Route::middleware([
     })->name('dashboard');
 
 
-    Route::resource('demande', App\Http\Controllers\DemandeController::class);
+    // en faisant ceci nous pourrons tous utiliser le meme controller
+    Route::controller(DemandeController::class)->prefix('admin')->group(function () {
+        Route::get('/demandes', 'admin_demandes')->name('admin.demandes');
+    });
 
-    Route::resource('user', App\Http\Controllers\UserController::class);
 
-    Route::resource('entreprise', App\Http\Controllers\EntrepriseController::class);
 });
 
 

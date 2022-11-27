@@ -6,7 +6,7 @@ module.exports = {
 
         extend: {
             fontFamily: {
-                sans: ["Nunito", ...defaultTheme.fontFamily.sans],
+                // sans: ["Nunito", ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 primary: "#875f5f",
