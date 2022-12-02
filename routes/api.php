@@ -30,20 +30,20 @@ Route::get('/stats/{id}/{period}', function ($id,$period) {
             break;
 
         case 'monthly':
-            return [Demande::where('admin_id',$id)->where('status','traite')->whereBetween('created_at', $monthly_period)->count(),Demande::where('admin_id',$id)->where('status','en_cours')->whereBetween('created_at', $monthly_period)->count(),Demande::where('admin_id',$id)->where('status','rejete')->whereBetween('created_at', $monthly_period)->count()];
+            return [Demande::where('admin_id',$id)->where('status','traite')->whereBetween('updated_at', $monthly_period)->count(),Demande::where('admin_id',$id)->where('status','en_cours')->whereBetween('updated_at', $monthly_period)->count(),Demande::where('admin_id',$id)->where('status','rejete')->whereBetween('updated_at', $monthly_period)->count()];
             break;
 
         case 'weekly':
-            return [Demande::where('admin_id',$id)->where('status','traite')->whereBetween('created_at', $weekly_period)->count(),Demande::where('admin_id',$id)->where('status','en_cours')->whereBetween('created_at', $weekly_period)->count(),Demande::where('admin_id',$id)->where('status','rejete')->whereBetween('created_at', $weekly_period)->count()];
+            return [Demande::where('admin_id',$id)->where('status','traite')->whereBetween('updated_at', $weekly_period)->count(),Demande::where('admin_id',$id)->where('status','en_cours')->whereBetween('updated_at', $weekly_period)->count(),Demande::where('admin_id',$id)->where('status','rejete')->whereBetween('updated_at', $weekly_period)->count()];
             break;
 
         case 'daily':
-            return [Demande::where('admin_id',$id)->where('status','traite')->whereBetween('created_at', [Carbon::today(),Carbon::now()])->count(),Demande::where('admin_id',$id)->where('status','en_cours')->whereBetween('created_at', [Carbon::today(),Carbon::now()])->count(),Demande::where('admin_id',$id)->where('status','rejete')->whereBetween('created_at', [Carbon::today(),Carbon::now()])->count()];
+            return [Demande::where('admin_id',$id)->where('status','traite')->whereBetween('updated_at', [Carbon::today(),Carbon::now()])->count(),Demande::where('admin_id',$id)->where('status','en_cours')->whereBetween('updated_at', [Carbon::today(),Carbon::now()])->count(),Demande::where('admin_id',$id)->where('status','rejete')->whereBetween('updated_at', [Carbon::today(),Carbon::now()])->count()];
 
             break;
 
         default:
-            # code...
+            abort(404);
             break;
     }
 })->name('stats');

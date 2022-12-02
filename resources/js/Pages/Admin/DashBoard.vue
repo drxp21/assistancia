@@ -23,7 +23,7 @@ var data = reactive({
     ],
     datasets: [{
         data: [],
-        backgroundColor: ['#036e15', '#6875F5', '#bf0702'],
+        backgroundColor: ['#875f5f', '#b88c8c', '#593535'],
         hoverOffset: 4
     }]
 });
@@ -90,8 +90,8 @@ const period = () => {
 
             <div class="flex-[3] md:h-[95%] h-[45%]  gap-4 flex md:flex-wrap md:p-12 md:justify-end justify-center sm:px-0"
                 v-if="data.datasets[0].data.length">
-                <Link
-                    class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-[#036e15] md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
+                <Link :href="route('admin.demandes')"
+                    class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-primary md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
                 <span class="w-full">
                     Traitées
                 </span>
@@ -99,8 +99,8 @@ const period = () => {
                     <strong class="text-3xl">{{ data.datasets[0].data[0] }}</strong>
                 </span>
                 </Link>
-                <Link
-                    class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-[#6875F5] md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
+                <Link :href="route('admin.demandes')"
+                    class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-light md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
                 <span class="w-full">
                     En cours
                 </span>
@@ -109,8 +109,8 @@ const period = () => {
 
                 </span>
                 </Link>
-                <Link
-                    class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-[#bf0702] md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
+                <Link :href="route('admin.demandes')"
+                    class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-dark md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
                 <span class="w-full">
                     Rejetées
                 </span>
@@ -132,31 +132,37 @@ const period = () => {
 
 
             <div class="md:w-1/2 overflow-y-auto  h-72 md:h-auto w-full mb-4 px-4  py-5">
-                <span class="px-3 font-bold absolute  z-10 bg-blue-700 text-white rounded-lg shadow-lg py-1 ">
+                <Link class="px-3 font-bold absolute  z-10 bg-dark text-white rounded-lg shadow-lg py-1 " >
                     Demandes non traitées
-                </span>
-                <ul>
-                    <Link v-for="demande in all_demandes" class="">
+                </Link >
+                <ul v-if="all_demandes.length">
+                    <Link v-for="demande in all_demandes" :href="route('admin.demande',demande.id)">
                     <ListElement :date="new Date(demande.created_at).toLocaleDateString()" :objet="demande.objet"
-                        class="hover:scale-105  transition-all relative bg-gray-100 hover:z-20"
+                        :status="demande.status" class="
+                         relative bg-gray-100 hover:z-20"
                         :auteur="demande.auteur" />
                     </Link>
                 </ul>
+                <div class="flex py-5 justify-center items-center flex-col-reverse md:flex-row" v-else>
+                    <span class="font-bold">Aucune demande non traitée</span>
+                    <img :src="`/storage/assets/images/emptyFolder.webp`" class="w-1/2 h-1/2" alt="">
+                </div>
             </div>
 
             <div class="md:w-1/2 overflow-y-auto  h-72 md:h-auto w-full mb-4 px-4 py-5">
-                <span class="px-3 font-bold absolute  z-10 bg-amber-500 text-white rounded-lg shadow-lg py-1 ">Mes
+                <Link class="px-3 font-bold absolute  z-10 bg-light text-white rounded-lg shadow-lg py-1 " :href="route('admin.demandes')" >Mes
                     demandes
-                </span>
+                </Link>
                 <ul v-if="mes_demandes.length">
-                    <Link v-for="demande in mes_demandes" class="">
+                    <Link v-for="demande in mes_demandes" class="" :href="route('admin.demande',demande.id)">
                     <ListElement :date="new Date(demande.created_at).toLocaleDateString()" :objet="demande.objet"
-                        class="hover:scale-105 transition-all relative bg-gray-200 hover:z-20"
+                        :status="demande.status" class="hover:scale-105 transition-all relative bg-gray-200 hover:z-20"
                         :auteur="demande.auteur" />
                     </Link>
                 </ul>
-                <div v-else>
-                    pas de demandes insbi
+                <div class="flex py-5 justify-center items-center flex-col-reverse md:flex-row" v-else>
+                    <img :src="`/storage/assets/images/emptyFolder.webp`" class="w-1/2 h-1/2" alt="">
+                    <span class="font-bold">Vous n'avez aucune demande</span>
                 </div>
             </div>
         </div>
