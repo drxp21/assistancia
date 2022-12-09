@@ -26,10 +26,11 @@ class DemandeFactory extends Factory
     public function definition()
     {
         return [
+            'status'=>'en_attente',
             'objet'=>$this->faker->word(),
             'auteur_id'=>User::factory(),
             'contenu' => $this->faker->text(),
-            'feedback'=> $this->faker->text()
+            'feedback'=> null
         ];
     }
 }

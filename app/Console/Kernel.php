@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
             foreach ($admins as $admin) {
                 Mail::to($admin->email)->send(new EnAttente($admin->name, $demandes));
             }
-        })->everyMinute();
+        })->daily();
 
         $schedule->call(function () {
             $admins = User::where('role', 'admin')->get();
@@ -43,7 +43,7 @@ class Kernel extends ConsoleKernel
                     Mail::to($admin->email)->send(new EnCours($admin->name,$demandes));
                 }
             }
-        })->everyMinute();
+        })->daily();
     }
 
     /**

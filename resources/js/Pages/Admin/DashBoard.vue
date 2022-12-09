@@ -27,10 +27,7 @@ var data = reactive({
         hoverOffset: 4
     }]
 });
-onMounted(() => {
-    let id = usePage().props.value.user.id
-    axios.get(route('stats', [id, 'all'])).then(res => data.datasets[0].data = (res.data)).catch(err => console.log(err))
-})
+
 const ChartOptions = {
     responsive: true,
     plugins: {
@@ -41,6 +38,11 @@ const ChartOptions = {
         }
     }
 }
+
+onMounted(() => {
+    let id = usePage().props.value.user.id
+    axios.get(route('stats', [id, 'all'])).then(res => data.datasets[0].data = (res.data)).catch(err => console.log(err))
+})
 
 const period = () => {
     let id = usePage().props.value.user.id
@@ -66,6 +68,7 @@ const period = () => {
                     <option value="daily">Aujourd'hui</option>
                 </select>
             </span>
+
             <div class="flex-[2] md:h-[95%] h-[45%] md:w-7 w-full" v-if="data.datasets[0].data.length">
                 <Doughnut :chartData="data" :chart-options="ChartOptions" />
             </div>
@@ -90,6 +93,7 @@ const period = () => {
 
             <div class="flex-[3] md:h-[95%] h-[45%]  gap-4 flex md:flex-wrap md:p-12 md:justify-end justify-center sm:px-0"
                 v-if="data.datasets[0].data.length">
+
                 <Link :href="route('admin.demandes')"
                     class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-primary md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
                 <span class="w-full">
@@ -98,18 +102,23 @@ const period = () => {
                 <span class="w-full">
                     <strong class="text-3xl">{{ data.datasets[0].data[0] }}</strong>
                 </span>
+
                 </Link>
                 <Link :href="route('admin.demandes')"
                     class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-light md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
-                <span class="w-full">
+
+                    <span class="w-full">
                     En cours
                 </span>
+
                 <span class="w-full">
                     <strong class="text-3xl"> {{ data.datasets[0].data[1]}} </strong>
 
                 </span>
-                </Link>
-                <Link :href="route('admin.demandes')"
+
+            </Link>
+
+            <Link :href="route('admin.demandes')"
                     class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-dark md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
                 <span class="w-full">
                     Rejetées
@@ -118,8 +127,12 @@ const period = () => {
                     <strong class="text-3xl"> {{ data.datasets[0].data[2]}} </strong>
 
                 </span>
-                </Link>
+
+            </Link>
             </div>
+
+
+
             <div class="flex-[3] md:h-[95%] h-[45%]  gap-4 flex md:flex-wrap md:p-12 md:justify-end justify-center sm:px-0 animate-pulse"
                 v-else>
                 <div class="flex flex-wrap shadow-lg rounded-md bg-gray-300 md:p-5 p-3 md:w-1/3 w-1/4 h-20"></div>
