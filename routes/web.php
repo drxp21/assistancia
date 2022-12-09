@@ -2,9 +2,18 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DemandeController;
+<<<<<<< HEAD
 use App\Mail\MailNouvelleDemande;
 use App\Models\Demande;
 use App\Models\User;
+=======
+use App\Mail\EnAttente;
+use App\Mail\EnCours;
+use App\Mail\Feedback;
+use App\Models\Demande;
+use App\Models\User;
+use Carbon\Carbon;
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -23,6 +32,10 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
+<<<<<<< HEAD
+=======
+
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -39,6 +52,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         switch (Auth::user()->role) {
             case 'client':
+<<<<<<< HEAD
                 $all_demandes=Demande::all();
                 $mes_demandes=Demande::where('auteur_id',Auth::user()->id)->latest()->get();
                 foreach ($mes_demandes as $demande ) {
@@ -47,11 +61,15 @@ Route::middleware([
                 return Inertia::render('Client/Dashboard',['all_demandes'=>$all_demandes,'mes_demandes'=>$mes_demandes]);
 
 
+=======
+                return Inertia::render('Client/Dashboard');
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
                 break;
 
 
             case 'admin':
 
+<<<<<<< HEAD
                 $all_demandes=Demande::where('admin_id',null)->latest()->get();
                 foreach ($all_demandes as $demande ) {
                     $demande->auteur=User::find($demande->auteur_id)->name;
@@ -63,6 +81,19 @@ Route::middleware([
                 }
 
                 return Inertia::render('Admin/Dashboard',['all_demandes'=>$all_demandes,'mes_demandes'=>$mes_demandes]);
+=======
+                $all_demandes = Demande::where('admin_id', null)->latest()->get();
+                foreach ($all_demandes as $demande) {
+                    $demande->auteur = User::find($demande->auteur_id)->name;
+                }
+
+                $mes_demandes = Demande::where('admin_id', Auth::user()->id)->latest()->get();
+                foreach ($mes_demandes as $demande) {
+                    $demande->auteur = User::find($demande->auteur_id)->name;
+                }
+
+                return Inertia::render('Admin/Dashboard', ['all_demandes' => $all_demandes, 'mes_demandes' => $mes_demandes]);
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
 
                 break;
 
@@ -78,6 +109,7 @@ Route::middleware([
     })->name('dashboard');
 
 
+<<<<<<< HEAD
     //Route::resource('demandes',DemandeController::class);
 
     // en faisant ceci nous pourrons tous utiliser le meme controller
@@ -105,3 +137,13 @@ Route::middleware([
 
 
 
+=======
+    // en faisant ceci nous pourrons tous utiliser le meme controller
+    Route::controller(DemandeController::class)->prefix('admin')->group(function () {
+        Route::get('/demandes', 'admin_demandes')->name('admin.demandes')->middleware('isAdmin');
+        Route::get('/demande/{id}', 'admin_demande_show')->name('admin.demande')->middleware('isAdmin');
+        Route::put('/handle_demande', 'admin_handle_demande')->name('admin.handle_demande')->middleware('isAdmin');
+        Route::put('/feedback', 'admin_feedback')->name('admin.feedback')->middleware('isAdmin');
+    });
+});
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195

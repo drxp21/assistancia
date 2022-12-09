@@ -14,10 +14,17 @@ defineProps({
 </script>
 
 <template>
+<<<<<<< HEAD
     <AppLayout title="Profile">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Profile
+=======
+    <AppLayout title="Profil">
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Profil
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
             </h2>
         </template>
 
@@ -36,9 +43,15 @@ defineProps({
                 </div>
 
                 <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
+<<<<<<< HEAD
                     <TwoFactorAuthenticationForm 
                         :requires-confirmation="confirmsTwoFactorAuthentication"
                         class="mt-10 sm:mt-0" 
+=======
+                    <TwoFactorAuthenticationForm
+                        :requires-confirmation="confirmsTwoFactorAuthentication"
+                        class="mt-10 sm:mt-0"
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
                     />
 
                     <SectionBorder />

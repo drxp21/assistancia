@@ -16,12 +16,19 @@ class Demande extends Model
      */
     protected $fillable = [
         'status',
+<<<<<<< HEAD
         'objet',
         'contenu',
+=======
+        'contenu',
+        'objet',
+        'feedback',
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
         'auteur_id',
         'admin_id',
     ];
 
+<<<<<<< HEAD
     /**
      * The attributes that should be cast to native types.
      *
@@ -34,5 +41,17 @@ class Demande extends Model
     ];
 
 
+=======
+
+    /**
+     * Get the user that owns the Demande
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'auteur_id');
+    }
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
 
 }

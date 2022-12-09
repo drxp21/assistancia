@@ -1,5 +1,6 @@
 <script setup>
 import AppLayout from '../../Layouts/AppLayout.vue'
+<<<<<<< HEAD
 import { defineProps, onMounted, reactive, ref } from 'vue'
 import { Head, Link, Inertia } from '@inertiajs/inertia-vue3';
 import noresult from '../../../../public/images/no-results.png'
@@ -50,5 +51,14 @@ const props = defineProps({
 
 
 
+=======
+</script>
+<template>
+    <AppLayout title="Dashboard Admin">
+        <div class="p-6 sm:px-20 bg-white border-b border-gray-200  mt-7 mx-5 rounded-md shadow-lg">
+            Dashboard client
+        </div>
+
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
     </AppLayout>
 </template>

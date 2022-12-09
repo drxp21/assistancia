@@ -20,7 +20,11 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+<<<<<<< HEAD
             $table->enum('role',['client','admin','super-admin'])->default('client');
+=======
+            $table->enum('role',['client','admin','super-admin']);
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();

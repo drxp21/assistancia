@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DemandeStoreRequest;
 use App\Http\Requests\DemandeUpdateRequest;
+<<<<<<< HEAD
 use App\Mail\MailNouvelleDemande;
+=======
+use App\Mail\Feedback;
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
 use App\Models\Demande;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,6 +18,7 @@ use Inertia\Inertia;
 
 class DemandeController extends Controller
 {
+<<<<<<< HEAD
     public function store_demande(Request $request)
     {
         $request->validate([
@@ -46,10 +51,20 @@ class DemandeController extends Controller
             $demande->auteur = User::find($demande->auteur_id)->name;
         }
 
+=======
+
+    public function admin_demandes()
+    {
+        $mes_demandes = Demande::where('admin_id', Auth::user()->id)->orderByRaw("FIELD(status, \"en_cours\", \"traite\", \"rejete\")")->get();
+        foreach ($mes_demandes as $demande) {
+            $demande->auteur = User::findOrFail($demande->auteur_id)->name;
+        }
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
         return Inertia::render('Admin/MesDemandes', ['mes_demandes' => $mes_demandes]);
     }
 
 
+<<<<<<< HEAD
 
     public function details_demandes($id)
     {
@@ -72,4 +87,33 @@ class DemandeController extends Controller
         );
     }
 
+=======
+    public function admin_demande_show(int $id)
+    {
+        $demande = Demande::findOrFail($id);
+        $demande->auteur = User::findOrFail($demande->auteur_id);
+        return Inertia::render('Admin/DetailDemande', ['demande' => $demande]);
+    }
+
+
+    public function admin_handle_demande(Request $request)
+    {
+        Demande::findOrFail($request->demande_id)->update(['status' => 'en_cours', 'admin_id' => $request->admin_id]);
+    }
+
+
+
+    public function admin_feedback(Request $request)
+    {
+        request()->validate([
+            'feedback' => 'required'
+        ]);
+        Demande::findOrFail($request->demande_auteur['id'])->update([
+            'feedback' => $request->feedback,
+            'status' => $request->type == 'feedback' ? 'traite' : 'rejete',
+        ]);
+        $type = $request->type == 'feedback' ? 'traitée' : 'rejetée';
+        Mail::to($request->demande_auteur['email'])->send(new Feedback($type,$request->feedback));
+    }
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
 }
