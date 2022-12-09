@@ -2,10 +2,6 @@
 
 namespace App\Console;
 
-<<<<<<< HEAD
-use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-=======
 use App\Mail\EnAttente;
 use App\Mail\EnCours;
 use App\Models\Demande;
@@ -16,7 +12,6 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Mail;
 
 use function PHPUnit\Framework\isEmpty;
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
 
 class Kernel extends ConsoleKernel
 {
@@ -28,9 +23,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-<<<<<<< HEAD
-        // $schedule->command('inspire')->hourly();
-=======
         $schedule->call(function () {
             $admins = User::where('role', 'admin')->get();
             $demandes = Demande::where('admin_id', null)
@@ -52,7 +44,6 @@ class Kernel extends ConsoleKernel
                 }
             }
         })->daily();
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
     }
 
     /**
@@ -62,11 +53,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-<<<<<<< HEAD
-        $this->load(__DIR__.'/Commands');
-=======
         $this->load(__DIR__ . '/Commands');
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
 
         require base_path('routes/console.php');
     }
