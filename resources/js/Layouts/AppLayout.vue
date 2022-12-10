@@ -38,11 +38,7 @@ const logout = () => {
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
-<<<<<<< HEAD
                 <div class="max-w-7xl bg-light mx-auto px-4 sm:px-6 lg:px-8">
-=======
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
                     <div class="flex justify-between h-16">
                         <div class="flex">
                             <!-- Logo -->
@@ -53,105 +49,105 @@ const logout = () => {
                             </div>
 
                             <!-- Navigation Links -->
-<<<<<<< HEAD
                             <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex ">
                                 <NavLink class="" :href="route('dashboard')" :active="route().current('dashboard')">
                                     Tableau de bord
                                 </NavLink>
-                                <NavLink  class="" :href="route('create.demande')" :active="route().current('create.demande')">
+                                <NavLink class="" :href="route('create.demande')"
+                                    :active="route().current('create.demande')">
                                     Faire une demande
                                 </NavLink>
-=======
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
-                                </NavLink>
-<<<<<<< HEAD
-                                <NavLink href="#admin" v-if="$page.props.user.role=='super-admin'"   >
-                                    les Administrateurs
-=======
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
-                                <NavLink :href="route('admin.demandes')" :active="route().current('admin.demandes')"  v-if="$page.props.user.role=='admin'">
-                                    Mes demandes
->>>>>>> 55eecffa7e44b946ac5fa007165d181af020a851
-                                </NavLink>
-                                <NavLink href="#add" v-if="$page.props.user.role=='super-admin'">
-                                    New Admin
-                                </NavLink>
-                                <NavLink href="#stat" v-if="$page.props.user.role=='super-admin'">
-                                    Statistiques
-                                </NavLink>
+                                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                        Dashboard
+                                    </NavLink>
+                                    <NavLink href="#admin" v-if="$page.props.user.role=='super-admin'">
+                                        les Administrateurs
+                                    </NavLink>
+
+                                    <NavLink :href="route('admin.demandes')" :active="route().current('admin.demandes')"
+                                        v-if="$page.props.user.role=='admin'">
+                                        Mes demandes
+                                    </NavLink>
+                                    <NavLink href="#add" v-if="$page.props.user.role=='super-admin'">
+                                        New Admin
+                                    </NavLink>
+                                    <NavLink href="#stat" v-if="$page.props.user.role=='super-admin'">
+                                        Statistiques
+                                    </NavLink>
 
 
 
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="hidden sm:flex sm:items-center sm:ml-6">
-                            <!-- Settings Dropdown -->
-                            <div class="ml-3 relative">
-                                <Dropdown align="right" width="48">
-                                    <template #trigger>
-                                        <button v-if="$page.props.jetstream.managesProfilePhotos"
-                                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                            <img class="h-8 w-8 rounded-full object-cover"
-                                                :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
-                                        </button>
-
-                                        <span v-else class="inline-flex rounded-md">
-                                            <button type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
-                                                {{ $page.props.user.name }}
-
-                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
+                            <div class="hidden sm:flex sm:items-center sm:ml-6">
+                                <!-- Settings Dropdown -->
+                                <div class="ml-3 relative">
+                                    <Dropdown align="right" width="48">
+                                        <template #trigger>
+                                            <button v-if="$page.props.jetstream.managesProfilePhotos"
+                                                class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                                <img class="h-8 w-8 rounded-full object-cover"
+                                                    :src="$page.props.user.profile_photo_url"
+                                                    :alt="$page.props.user.name">
                                             </button>
-                                        </span>
-                                    </template>
 
-                                    <template #content>
-                                        <!-- Account Management -->
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
-                                            Mon compte
-                                        </div>
+                                            <span v-else class="inline-flex rounded-md">
+                                                <button type="button"
+                                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                                    {{ $page.props.user.name }}
 
-                                        <DropdownLink :href="route('profile.show')">
-                                            Profil
-                                        </DropdownLink>
+                                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </button>
+                                            </span>
+                                        </template>
 
-                                        <div class="border-t border-gray-100" />
+                                        <template #content>
+                                            <!-- Account Management -->
+                                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                                Mon compte
+                                            </div>
 
-                                        <!-- Authentication -->
-                                        <form @submit.prevent="logout">
-                                            <DropdownLink as="button">
-                                                Se déconnecter
+                                            <DropdownLink :href="route('profile.show')">
+                                                Profil
                                             </DropdownLink>
-                                        </form>
-                                    </template>
-                                </Dropdown>
-                            </div>
-                        </div>
 
-                        <!-- Hamburger -->
-                        <div class="-mr-2 flex items-center sm:hidden">
-                            <button
-                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition"
-                                @click="showingNavigationDropdown = ! showingNavigationDropdown">
-                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                    <path
-                                        :class="{'hidden': showingNavigationDropdown, 'inline-flex': ! showingNavigationDropdown }"
-                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 12h16M4 18h16" />
-                                    <path
-                                        :class="{'hidden': ! showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }"
-                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
+                                            <div class="border-t border-gray-100" />
+
+                                            <!-- Authentication -->
+                                            <form @submit.prevent="logout">
+                                                <DropdownLink as="button">
+                                                    Se déconnecter
+                                                </DropdownLink>
+                                            </form>
+                                        </template>
+                                    </Dropdown>
+                                </div>
+                            </div>
+
+                            <!-- Hamburger -->
+                            <div class="-mr-2 flex items-center sm:hidden">
+                                <button
+                                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition"
+                                    @click="showingNavigationDropdown = ! showingNavigationDropdown">
+                                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                        <path
+                                            :class="{'hidden': showingNavigationDropdown, 'inline-flex': ! showingNavigationDropdown }"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 6h16M4 12h16M4 18h16" />
+                                        <path
+                                            :class="{'hidden': ! showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -164,13 +160,13 @@ const logout = () => {
                             Tableau de bord
                         </ResponsiveNavLink>
 
-                        <ResponsiveNavLink  href="#stat" v-if="$page.props.user.role=='super-admin'">
-                                    Stats
+                        <ResponsiveNavLink href="#stat" v-if="$page.props.user.role=='super-admin'">
+                            Stats
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink href="#add" v-if="$page.props.user.role=='super-admin'" >
+                        <ResponsiveNavLink href="#add" v-if="$page.props.user.role=='super-admin'">
                             New Admin
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink href="#admin" v-if="$page.props.user.role=='super-admin'" >
+                        <ResponsiveNavLink href="#admin" v-if="$page.props.user.role=='super-admin'">
                             les adminstrateurs
                         </ResponsiveNavLink>
                     </div>
@@ -226,7 +222,7 @@ const logout = () => {
 </template>
 <script>
 export default {
-    props:['lien']
+    props: ['lien']
 }
 </script>
 <style>
