@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+<<<<<<< HEAD
 Route::get('/stats/{id}/{period}', function ($id,$period) {
     $monthly_period=[Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()];
     $weekly_period=[Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()];
@@ -39,11 +40,43 @@ Route::get('/stats/{id}/{period}', function ($id,$period) {
 
         case 'daily':
             return [Demande::where('admin_id',$id)->where('status','traite')->whereBetween('created_at', [Carbon::today(),Carbon::now()])->count(),Demande::where('admin_id',$id)->where('status','en_cours')->whereBetween('created_at', [Carbon::today(),Carbon::now()])->count(),Demande::where('admin_id',$id)->where('status','rejete')->whereBetween('created_at', [Carbon::today(),Carbon::now()])->count()];
+=======
+Route::get('/stats/{id}/{period}', function ($id, $period) {
+    $monthly_period = [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()];
+    $weekly_period = [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()];
+    switch ($period) {
+        case 'all':
+            return [
+                Demande::where('admin_id', $id)->where('status', 'traite')->count(),
+                Demande::where('admin_id', $id)->where('status', 'en_cours')->count(),
+                Demande::where('admin_id', $id)->where('status', 'rejete')->count()
+            ];
+            break;
+
+        case 'monthly':
+            return [Demande::where('admin_id', $id)->where('status', 'traite')->whereBetween('updated_at', $monthly_period)->count(), Demande::where('admin_id', $id)->where('status', 'en_cours')->whereBetween('updated_at', $monthly_period)->count(), Demande::where('admin_id', $id)->where('status', 'rejete')->whereBetween('updated_at', $monthly_period)->count()];
+            break;
+
+        case 'weekly':
+            return [Demande::where('admin_id', $id)->where('status', 'traite')->whereBetween('updated_at', $weekly_period)->count(), Demande::where('admin_id', $id)->where('status', 'en_cours')->whereBetween('updated_at', $weekly_period)->count(), Demande::where('admin_id', $id)->where('status', 'rejete')->whereBetween('updated_at', $weekly_period)->count()];
+            break;
+
+        case 'daily':
+            return [Demande::where('admin_id', $id)->where('status', 'traite')->whereBetween('updated_at', [Carbon::today(), Carbon::now()])->count(), Demande::where('admin_id', $id)->where('status', 'en_cours')->whereBetween('updated_at', [Carbon::today(), Carbon::now()])->count(), Demande::where('admin_id', $id)->where('status', 'rejete')->whereBetween('updated_at', [Carbon::today(), Carbon::now()])->count()];
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
 
             break;
 
         default:
+<<<<<<< HEAD
             abort(404);
+=======
+<<<<<<< HEAD
+            # code...
+=======
+            abort(404);
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
+>>>>>>> 55eecffa7e44b946ac5fa007165d181af020a851
             break;
     }
 })->name('stats');

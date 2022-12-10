@@ -28,3 +28,8 @@ import Input from '../Components/TextInput.vue'
         </div>
     </AppLayout>
 </template>
+<<<<<<< HEAD
+<style>
+</style>
+=======
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195

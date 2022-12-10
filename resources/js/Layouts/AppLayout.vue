@@ -38,7 +38,11 @@ const logout = () => {
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
+<<<<<<< HEAD
+                <div class="max-w-7xl bg-light mx-auto px-4 sm:px-6 lg:px-8">
+=======
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
                     <div class="flex justify-between h-16">
                         <div class="flex">
                             <!-- Logo -->
@@ -49,12 +53,27 @@ const logout = () => {
                             </div>
 
                             <!-- Navigation Links -->
+<<<<<<< HEAD
+                            <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex ">
+                                <NavLink class="" :href="route('dashboard')" :active="route().current('dashboard')">
+                                    Tableau de bord
+                                </NavLink>
+                                <NavLink  class="" :href="route('create.demande')" :active="route().current('create.demande')">
+                                    Faire une demande
+                                </NavLink>
+=======
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
+<<<<<<< HEAD
                                 <NavLink href="#admin" v-if="$page.props.user.role=='super-admin'"   >
                                     les Administrateurs
+=======
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
+                                <NavLink :href="route('admin.demandes')" :active="route().current('admin.demandes')"  v-if="$page.props.user.role=='admin'">
+                                    Mes demandes
+>>>>>>> 55eecffa7e44b946ac5fa007165d181af020a851
                                 </NavLink>
                                 <NavLink href="#add" v-if="$page.props.user.role=='super-admin'">
                                     New Admin

@@ -2,6 +2,10 @@
 
 namespace App\Http;
 
+<<<<<<< HEAD
+=======
+use App\Http\Middleware\isAdmin;
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -21,6 +25,10 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+<<<<<<< HEAD
+=======
+        // isAdmin::class
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
     ];
 
     /**
@@ -65,5 +73,9 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+<<<<<<< HEAD
+=======
+        'isAdmin' =>isAdmin::class,
+>>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
     ];
 }

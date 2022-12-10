@@ -6,6 +6,13 @@ import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+<<<<<<< HEAD
+=======
+import Vue3Marquee from 'vue3-marquee'
+import 'vue3-marquee/dist/style.css'
+
+
+>>>>>>> 55eecffa7e44b946ac5fa007165d181af020a851
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
 createInertiaApp({
@@ -15,8 +22,11 @@ createInertiaApp({
         return createApp({ render: () => h(app, props) })
             .use(plugin)
             .use(ZiggyVue, Ziggy)
+            .use(Vue3Marquee)
             .mount(el);
     },
 });
 
 InertiaProgress.init({ color: '#875f5f' });
+InertiaProgress.init({ color: '#875f5f',showSpinner:'true'  });
+
