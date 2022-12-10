@@ -64,12 +64,26 @@ const logout = () => {
 =======
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Tableau de bord
+                                    Dashboard
                                 </NavLink>
+<<<<<<< HEAD
+                                <NavLink href="#admin" v-if="$page.props.user.role=='super-admin'"   >
+                                    les Administrateurs
+=======
 >>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
                                 <NavLink :href="route('admin.demandes')" :active="route().current('admin.demandes')"  v-if="$page.props.user.role=='admin'">
                                     Mes demandes
+>>>>>>> 55eecffa7e44b946ac5fa007165d181af020a851
                                 </NavLink>
+                                <NavLink href="#add" v-if="$page.props.user.role=='super-admin'">
+                                    New Admin
+                                </NavLink>
+                                <NavLink href="#stat" v-if="$page.props.user.role=='super-admin'">
+                                    Statistiques
+                                </NavLink>
+
+
+
                             </div>
                         </div>
 
@@ -146,11 +160,18 @@ const logout = () => {
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
                     class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                        <ResponsiveNavLink :href="route('dashboard')">
                             Tableau de bord
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('admin.demandes')" :active="route().current('admin.demandes')" v-if="$page.props.user.role=='admin'">
-                            Mes demandes
+
+                        <ResponsiveNavLink  href="#stat" v-if="$page.props.user.role=='super-admin'">
+                                    Stats
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href="#add" v-if="$page.props.user.role=='super-admin'" >
+                            New Admin
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href="#admin" v-if="$page.props.user.role=='super-admin'" >
+                            les adminstrateurs
                         </ResponsiveNavLink>
                     </div>
 
@@ -203,6 +224,11 @@ const logout = () => {
         </div>
     </div>
 </template>
+<script>
+export default {
+    props:['lien']
+}
+</script>
 <style>
 ::-webkit-scrollbar {
     width: 5px;

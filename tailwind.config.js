@@ -19,6 +19,8 @@ module.exports = {
                 primary: "#875f5f",
                 light: "#b88c8c",
                 dark: "#593535",
+                drop: "#F7F6F3",
+
             },
         },
     },

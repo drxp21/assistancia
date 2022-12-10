@@ -1,5 +1,11 @@
 <?php
 
+<<<<<<< HEAD
+use Carbon\Carbon;
+use App\Models\User;
+use Inertia\Inertia;
+use App\Models\Demande;
+=======
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DemandeController;
 <<<<<<< HEAD
@@ -15,10 +21,14 @@ use App\Models\User;
 use Carbon\Carbon;
 >>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
 use Illuminate\Foundation\Application;
+>>>>>>> 55eecffa7e44b946ac5fa007165d181af020a851
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DemandeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,7 +109,17 @@ Route::middleware([
 
 
             case 'super-admin':
-                return Inertia::render('SuperAdmin/Dashboard');
+                $users = User::where('role','admin')->get();
+                foreach($users as $user)
+                {
+                    $user->demandeTraites = Demande::where([['admin_id',$user->id],['status','traite']])->get();
+                }
+                foreach($users as $user)
+                {
+                    $user->demandeRejetes = Demande::where([['admin_id',$user->id],['status','rejete']])->get();
+                }
+
+                return Inertia::render('SuperAdmin/Dashboard',['users'=>$users]);
                 break;
 
             default:
@@ -115,9 +135,19 @@ Route::middleware([
     // en faisant ceci nous pourrons tous utiliser le meme controller
     Route::controller(DemandeController::class)->prefix('admin')->group(function () {
         Route::get('/demandes', 'admin_demandes')->name('admin.demandes');
+        Route::get('/details/{id}','admin_details_show')->name('details');
+        Route::post('/new','new_admin')->name('new.admin');
     });
 
 
+<<<<<<< HEAD
+
+
+
+});
+
+
+=======
 
     Route::controller(DemandeController::class)->prefix('Client')->group(function () {
         Route::get('/FormDemande', 'create_demande')->name('create.demande');
@@ -147,3 +177,4 @@ Route::middleware([
     });
 });
 >>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
+>>>>>>> 55eecffa7e44b946ac5fa007165d181af020a851

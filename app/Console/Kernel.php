@@ -11,7 +11,6 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Mail;
 
-use function PHPUnit\Framework\isEmpty;
 
 class Kernel extends ConsoleKernel
 {

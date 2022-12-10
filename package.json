@@ -23,10 +23,17 @@
     "dependencies": {
         "chart.js": "^3.9.1",
 <<<<<<< HEAD
+        "json-server": "^0.17.1",
+        "vue-chart-3": "^3.1.8",
+        "vue-chartjs": "^4.1.2",
+        "vue-doughnut-chart": "^0.3.0"
+=======
+<<<<<<< HEAD
         "vue-chartjs": "^4.1.2"
 =======
         "vue-chartjs": "^4.1.2",
         "vue3-marquee": "^3.1.2"
 >>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
+>>>>>>> 55eecffa7e44b946ac5fa007165d181af020a851
     }
 }

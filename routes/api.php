@@ -69,10 +69,23 @@ Route::get('/stats/{id}/{period}', function ($id, $period) {
 
         default:
 <<<<<<< HEAD
+            abort(404);
+=======
+<<<<<<< HEAD
             # code...
 =======
             abort(404);
 >>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
+>>>>>>> 55eecffa7e44b946ac5fa007165d181af020a851
             break;
     }
 })->name('stats');
+
+Route::get('/all',function(){
+    return [Demande::where('status','traite')->count(),Demande::where('status','en_cours')->count(),Demande::where('status','rejete')->count()];
+})->name('all');
+
+Route::get('/one/{id}',function($id){
+    return [Demande::where('admin_id',$id)->where('status','traite')->count(),Demande::where('admin_id',$id)->where('status','en_cours')->count(),Demande::where('admin_id',$id)->where('status','rejete')->count()];
+})->name('one');
+
