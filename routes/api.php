@@ -43,7 +43,16 @@ Route::get('/stats/{id}/{period}', function ($id,$period) {
             break;
 
         default:
-            # code...
+            abort(404);
             break;
     }
 })->name('stats');
+
+Route::get('/all',function(){
+    return [Demande::where('status','traite')->count(),Demande::where('status','en_cours')->count(),Demande::where('status','rejete')->count()];
+})->name('all');
+
+Route::get('/one/{id}',function($id){
+    return [Demande::where('admin_id',$id)->where('status','traite')->count(),Demande::where('admin_id',$id)->where('status','en_cours')->count(),Demande::where('admin_id',$id)->where('status','rejete')->count()];
+})->name('one');
+

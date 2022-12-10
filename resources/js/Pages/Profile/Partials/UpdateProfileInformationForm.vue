@@ -43,6 +43,7 @@ const sendEmailVerification = () => {
 
 const selectNewPhoto = () => {
     photoInput.value.click();
+
 };
 
 const updatePhotoPreview = () => {

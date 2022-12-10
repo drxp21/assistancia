@@ -6,6 +6,7 @@ use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -36,10 +37,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate();
-        User::create($request->all());
 
-        return Inertia::render('User/Index');
+        User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>Hash::make('password')
+        ]);
+
+
     }
 
     /**

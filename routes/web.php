@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\DemandeController;
-use App\Models\Demande;
+use Carbon\Carbon;
 use App\Models\User;
-use Illuminate\Foundation\Application;
+use Inertia\Inertia;
+use App\Models\Demande;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DemandeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +62,17 @@ Route::middleware([
 
 
             case 'super-admin':
-                return Inertia::render('SuperAdmin/Dashboard');
+                $users = User::where('role','admin')->get();
+                foreach($users as $user)
+                {
+                    $user->demandeTraites = Demande::where([['admin_id',$user->id],['status','traite']])->get();
+                }
+                foreach($users as $user)
+                {
+                    $user->demandeRejetes = Demande::where([['admin_id',$user->id],['status','rejete']])->get();
+                }
+
+                return Inertia::render('SuperAdmin/Dashboard',['users'=>$users]);
                 break;
 
             default:
@@ -73,10 +85,14 @@ Route::middleware([
     // en faisant ceci nous pourrons tous utiliser le meme controller
     Route::controller(DemandeController::class)->prefix('admin')->group(function () {
         Route::get('/demandes', 'admin_demandes')->name('admin.demandes');
+        Route::get('/details/{id}','admin_details_show')->name('details');
+        Route::post('/new','new_admin')->name('new.admin');
     });
 
 
-});
 
+
+
+});
 
 
