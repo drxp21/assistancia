@@ -1,0 +1,36 @@
+created:
+    - app/Http/Controllers/DemandeController.php
+    - app/Http/Controllers/UserController.php
+    - app/Http/Controllers/EntrepriseController.php
+    - database/factories/DemandeFactory.php
+    - database/factories/EntrepriseFactory.php
+    - database/migrations/2022_11_17_123750_create_demandes_table.php
+    - database/migrations/2022_11_17_123751_create_entreprises_table.php
+    - app/Models/Demande.php
+    - app/Models/Entreprise.php
+    - tests/Feature/Http/Controllers/DemandeControllerTest.php
+    - tests/Feature/Http/Controllers/UserControllerTest.php
+    - tests/Feature/Http/Controllers/EntrepriseControllerTest.php
+    - app/Http/Requests/DemandeStoreRequest.php
+    - app/Http/Requests/DemandeUpdateRequest.php
+    - app/Http/Requests/UserStoreRequest.php
+    - app/Http/Requests/UserUpdateRequest.php
+    - app/Http/Requests/EntrepriseStoreRequest.php
+    - app/Http/Requests/EntrepriseUpdateRequest.php
+    - resources/views/demande/index.blade.php
+    - resources/views/demande/create.blade.php
+    - resources/views/demande/show.blade.php
+    - resources/views/demande/edit.blade.php
+    - resources/views/user/index.blade.php
+    - resources/views/user/create.blade.php
+    - resources/views/user/show.blade.php
+    - resources/views/user/edit.blade.php
+    - resources/views/entreprise/index.blade.php
+    - resources/views/entreprise/create.blade.php
+    - resources/views/entreprise/show.blade.php
+    - resources/views/entreprise/edit.blade.php
+updated:
+    - routes/web.php
+models:
+    Demande: { status: 'enum:processed,pending,rejected', contenu: longtext, auteur_id: 'id foreign', admin_id: 'id foreign', relationships: { belongsTo: User } }
+    Entreprise: { content: longtext, published_at: 'nullable timestamp', relationships: { hasMany: User } }
