@@ -25,6 +25,7 @@
         "json-server": "^0.17.1",
         "vue-chart-3": "^3.1.8",
         "vue-chartjs": "^4.1.2",
+        "vue3-marquee": "^3.1.2",
         "vue-doughnut-chart": "^0.3.0"
     }
 }

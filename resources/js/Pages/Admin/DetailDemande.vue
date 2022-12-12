@@ -36,8 +36,10 @@ const traiter = () => {
     })
 }
 
-const feedback = () => {
+
+const sendFeedback = () => {
     form.put(route('admin.feedback', {
+        demande_id: props.demande.id,
         demande_auteur: props.demande.auteur,
         type: 'feedback'
     }), {
@@ -57,6 +59,7 @@ const rejet = () => {
 
     show.value = false
     form.put(route('admin.feedback', {
+        demande_id: props.demande.id,
         demande_auteur: props.demande.auteur,
         type: 'rejet'
     }), {
@@ -117,7 +120,7 @@ const rejet = () => {
                     </PrimaryButton>
                 </div>
             </div>
-            <form class="w-full" v-else @submit.prevent="feedback">
+            <form class="w-full" v-else @submit.prevent="sendFeedback()">
                 <hr class="my-5">
                 <textarea
                     class="w-full border-2 border-gray-300 rounded-lg focus:ring-0 focus:border-gray-400 px-9 py-5 h-44"
@@ -126,7 +129,7 @@ const rejet = () => {
 
                 </textarea>
                 <InputError :message="form.errors.feedback" />
-                <div class="w-full flex justify-between my-4">
+                <div class="w-full flex justify-between my-4"  v-if="demande.status == 'en_cours'">
                     <DangerButton @click="show=true" :disabled="form.processing">
                         Rejeter
                     </DangerButton>
@@ -146,7 +149,7 @@ const rejet = () => {
                     <SecondaryButton class="mx-2" @click="show=false">
                         Annuler
                     </SecondaryButton>
-                    <DangerButton @click="rejet">
+                    <DangerButton @click="rejet()">
                         Rejeter
                     </DangerButton>
                 </template>

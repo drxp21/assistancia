@@ -16,32 +16,13 @@ class Demande extends Model
      */
     protected $fillable = [
         'status',
-<<<<<<< HEAD
-        'objet',
-        'contenu',
-=======
         'contenu',
         'objet',
         'feedback',
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
         'auteur_id',
         'admin_id',
     ];
 
-<<<<<<< HEAD
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'id' => 'integer',
-        'auteur_id' => 'integer',
-        'admin_id' => 'integer',
-    ];
-
-
-=======
 
     /**
      * Get the user that owns the Demande
@@ -52,6 +33,5 @@ class Demande extends Model
     {
         return $this->belongsTo(User::class, 'auteur_id');
     }
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
 
 }

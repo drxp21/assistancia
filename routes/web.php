@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\DemandeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,12 +37,12 @@ Route::middleware([
     Route::get('/dashboard', function () {
         switch (Auth::user()->role) {
             case 'client':
-                $all_demandes=Demande::all();
-                $mes_demandes=Demande::where('auteur_id',Auth::user()->id)->latest()->get();
-                foreach ($mes_demandes as $demande ) {
-                    $demande->auteur=User::find($demande->auteur_id)->name;
+                $all_demandes = Demande::all();
+                $mes_demandes = Demande::where('auteur_id', Auth::user()->id)->latest()->get();
+                foreach ($mes_demandes as $demande) {
+                    $demande->auteur = User::find($demande->auteur_id)->name;
                 }
-                return Inertia::render('Client/Dashboard',['all_demandes'=>$all_demandes,'mes_demandes'=>$mes_demandes]);
+                return Inertia::render('Client/Dashboard', ['all_demandes' => $all_demandes, 'mes_demandes' => $mes_demandes]);
 
 
                 break;
@@ -49,33 +50,31 @@ Route::middleware([
 
             case 'admin':
 
-                $all_demandes=Demande::where('admin_id',null)->latest()->get();
-                foreach ($all_demandes as $demande ) {
-                    $demande->auteur=User::find($demande->auteur_id)->name;
+                $all_demandes = Demande::where('admin_id', null)->latest()->get();
+                foreach ($all_demandes as $demande) {
+                    $demande->auteur = User::find($demande->auteur_id)->name;
                 }
 
-                $mes_demandes=Demande::where('admin_id',Auth::user()->id)->latest()->get();
-                foreach ($mes_demandes as $demande ) {
-                    $demande->auteur=User::find($demande->auteur_id)->name;
+                $mes_demandes = Demande::where('admin_id', Auth::user()->id)->latest()->get();
+                foreach ($mes_demandes as $demande) {
+                    $demande->auteur = User::find($demande->auteur_id)->name;
                 }
 
-                return Inertia::render('Admin/Dashboard',['all_demandes'=>$all_demandes,'mes_demandes'=>$mes_demandes]);
+                return Inertia::render('Admin/Dashboard', ['all_demandes' => $all_demandes, 'mes_demandes' => $mes_demandes]);
 
                 break;
 
 
             case 'super-admin':
-                $users = User::where('role','admin')->get();
-                foreach($users as $user)
-                {
-                    $user->demandeTraites = Demande::where([['admin_id',$user->id],['status','traite']])->get();
+                $users = User::where('role', 'admin')->get();
+                foreach ($users as $user) {
+                    $user->demandeTraites = Demande::where([['admin_id', $user->id], ['status', 'traite']])->get();
                 }
-                foreach($users as $user)
-                {
-                    $user->demandeRejetes = Demande::where([['admin_id',$user->id],['status','rejete']])->get();
+                foreach ($users as $user) {
+                    $user->demandeRejetes = Demande::where([['admin_id', $user->id], ['status', 'rejete']])->get();
                 }
 
-                return Inertia::render('SuperAdmin/Dashboard',['users'=>$users]);
+                return Inertia::render('SuperAdmin/Dashboard', ['users' => $users]);
                 break;
 
             default:
@@ -85,26 +84,21 @@ Route::middleware([
     })->name('dashboard');
 
 
-    //Route::resource('demandes',DemandeController::class);
-
-    // en faisant ceci nous pourrons tous utiliser le meme controller
-    Route::controller(DemandeController::class)->prefix('admin')->group(function () {
+    Route::controller(DemandeController::class)->prefix('admin')->middleware('isAdmin')->group(function () {
         Route::get('/demandes', 'admin_demandes')->name('admin.demandes');
-        Route::get('/details/{id}','admin_details_show')->name('details');
-        Route::post('/new','new_admin')->name('new.admin');
+        Route::get('/demande/{id}', 'admin_demande_show')->name('admin.demande');
+        Route::put('/handledemande', 'admin_handle_demande')->name('admin.handle_demande');
+        Route::put('/feedbackdemande', 'admin_feedback')->name('admin.feedback');
     });
 
-    Route::controller(DemandeController::class)->prefix('Client')->group(function () {
-        Route::get('/FormDemande', 'create_demande')->name('create.demande');
-        Route::post('/FormDemande', 'store_demande')->name('store.demande');
-
-        Route::get('/DetailDemande/{id}', 'details_demandes')->name('details.demandes');
+    Route::controller(UserController::class)->prefix('superadmin')->middleware('isSuperAdmin')->group(function () {
+        Route::post('/new', 'superadmin_new_admin')->name('new.admin');
+        Route::get('/details/{id}', 'superadmin_admin_details_show')->name('superadmin.user');
     });
 
-
-
-
-
+    Route::controller(DemandeController::class)->prefix('Client')->middleware('isClient')->group(function () {
+        Route::get('/FormDemande', 'client_create_demande')->name('create.demande');
+        Route::post('/FormDemande', 'client_store_demande')->name('store.demande');
+        Route::get('/DetailDemande/{id}', 'client_details_demandes')->name('details.demandes');
+    });
 });
-
-

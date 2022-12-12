@@ -34,11 +34,37 @@ Route::get('/stats/{id}/{period}', function ($id, $period) {
             break;
 
         case 'monthly':
-            return [Demande::where('admin_id', $id)->where('status', 'traite')->whereBetween('updated_at', $monthly_period)->count(), Demande::where('admin_id', $id)->where('status', 'en_cours')->whereBetween('updated_at', $monthly_period)->count(), Demande::where('admin_id', $id)->where('status', 'rejete')->whereBetween('updated_at', $monthly_period)->count()];
+            return [
+                Demande::where('admin_id', $id)
+                    ->where('status', 'traite')
+                    ->whereBetween('updated_at', $monthly_period)
+                    ->count(),
+                Demande::where('admin_id', $id)
+                    ->where('status', 'en_cours')
+                    ->whereBetween('updated_at', $monthly_period)
+                    ->count(),
+                Demande::where('admin_id', $id)
+                    ->where('status', 'rejete')
+                    ->whereBetween('updated_at', $monthly_period)
+                    ->count()
+            ];
             break;
 
         case 'weekly':
-            return [Demande::where('admin_id', $id)->where('status', 'traite')->whereBetween('updated_at', $weekly_period)->count(), Demande::where('admin_id', $id)->where('status', 'en_cours')->whereBetween('updated_at', $weekly_period)->count(), Demande::where('admin_id', $id)->where('status', 'rejete')->whereBetween('updated_at', $weekly_period)->count()];
+            return [
+                Demande::where('admin_id', $id)
+                    ->where('status', 'traite')
+                    ->whereBetween('updated_at', $weekly_period)
+                    ->count(),
+                Demande::where('admin_id', $id)
+                    ->where('status', 'en_cours')
+                    ->whereBetween('updated_at', $weekly_period)
+                    ->count(),
+                Demande::where('admin_id', $id)
+                    ->where('status', 'rejete')
+                    ->whereBetween('updated_at', $weekly_period)
+                    ->count()
+            ];
             break;
 
         case 'daily':
@@ -52,11 +78,10 @@ Route::get('/stats/{id}/{period}', function ($id, $period) {
     }
 })->name('stats');
 
-Route::get('/all',function(){
-    return [Demande::where('status','traite')->count(),Demande::where('status','en_cours')->count(),Demande::where('status','rejete')->count()];
+Route::get('/all', function () {
+    return [Demande::where('status', 'traite')->count(), Demande::where('status', 'en_cours')->count(), Demande::where('status', 'rejete')->count()];
 })->name('all');
 
-Route::get('/one/{id}',function($id){
-    return [Demande::where('admin_id',$id)->where('status','traite')->count(),Demande::where('admin_id',$id)->where('status','en_cours')->count(),Demande::where('admin_id',$id)->where('status','rejete')->count()];
+Route::get('/one/{id}', function ($id) {
+    return [Demande::where('admin_id', $id)->where('status', 'traite')->count(), Demande::where('admin_id', $id)->where('status', 'en_cours')->count(), Demande::where('admin_id', $id)->where('status', 'rejete')->count()];
 })->name('one');
-

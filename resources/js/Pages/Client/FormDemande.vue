@@ -43,10 +43,10 @@ const submit = () => {
             Formulaires de demande
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 place-items-center ml-6 mt-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 place-items-center md:ml-6 mt-8">
 
             <div key="" flex flex-wrap> <img src="../../../../public/images/animation500form.gif" alt="un gif"
-                    class=" max-w-full  align-middle " /> > </div>
+                    class=" max-w-full  align-middle " />  </div>
             <div class="w-full sm:max-w-md mt-6 px-8 py-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
 
                 <Head title="faire une demande" />

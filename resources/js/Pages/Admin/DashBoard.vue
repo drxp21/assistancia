@@ -23,22 +23,11 @@ var data = reactive({
     ],
     datasets: [{
         data: [],
-<<<<<<< HEAD
-        backgroundColor: ['#036e15', '#6875F5', '#bf0702'],
-        hoverOffset: 4
-    }]
-});
-onMounted(() => {
-    let id = usePage().props.value.user.id
-    axios.get(route('stats', [id, 'all'])).then(res => data.datasets[0].data = (res.data)).catch(err => console.log(err))
-})
-=======
         backgroundColor: ['#875f5f', '#b88c8c', '#593535'],
         hoverOffset: 4
     }]
 });
 
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
 const ChartOptions = {
     responsive: true,
     plugins: {
@@ -50,14 +39,11 @@ const ChartOptions = {
     }
 }
 
-<<<<<<< HEAD
-=======
 onMounted(() => {
     let id = usePage().props.value.user.id
     axios.get(route('stats', [id, 'all'])).then(res => data.datasets[0].data = (res.data)).catch(err => console.log(err))
 })
 
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
 const period = () => {
     let id = usePage().props.value.user.id
     axios.get(route('stats', [id, periode.value])).then(res => data.datasets[0].data = (res.data)).catch(err => console.log(err))
@@ -82,10 +68,6 @@ const period = () => {
                     <option value="daily">Aujourd'hui</option>
                 </select>
             </span>
-<<<<<<< HEAD
-=======
-
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
             <div class="flex-[2] md:h-[95%] h-[45%] md:w-7 w-full" v-if="data.datasets[0].data.length">
                 <Doughnut :chartData="data" :chart-options="ChartOptions" />
             </div>
@@ -110,28 +92,15 @@ const period = () => {
 
             <div class="flex-[3] md:h-[95%] h-[45%]  gap-4 flex md:flex-wrap md:p-12 md:justify-end justify-center sm:px-0"
                 v-if="data.datasets[0].data.length">
-<<<<<<< HEAD
-                <Link
-                    class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-[#036e15] md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
-=======
 
                 <Link :href="route('admin.demandes')"
                     class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-primary md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
                 <span class="w-full">
                     Traitées
                 </span>
                 <span class="w-full">
                     <strong class="text-3xl">{{ data.datasets[0].data[0] }}</strong>
                 </span>
-<<<<<<< HEAD
-                </Link>
-                <Link
-                    class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-[#6875F5] md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
-                <span class="w-full">
-                    En cours
-                </span>
-=======
 
                 </Link>
                 <Link :href="route('admin.demandes')"
@@ -141,22 +110,15 @@ const period = () => {
                     En cours
                 </span>
 
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
                 <span class="w-full">
                     <strong class="text-3xl"> {{ data.datasets[0].data[1]}} </strong>
 
                 </span>
-<<<<<<< HEAD
-                </Link>
-                <Link
-                    class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-[#bf0702] md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
-=======
 
             </Link>
 
             <Link :href="route('admin.demandes')"
                     class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-dark md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
                 <span class="w-full">
                     Rejetées
                 </span>
@@ -164,17 +126,12 @@ const period = () => {
                     <strong class="text-3xl"> {{ data.datasets[0].data[2]}} </strong>
 
                 </span>
-<<<<<<< HEAD
-                </Link>
-            </div>
-=======
 
             </Link>
             </div>
 
 
 
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
             <div class="flex-[3] md:h-[95%] h-[45%]  gap-4 flex md:flex-wrap md:p-12 md:justify-end justify-center sm:px-0 animate-pulse"
                 v-else>
                 <div class="flex flex-wrap shadow-lg rounded-md bg-gray-300 md:p-5 p-3 md:w-1/3 w-1/4 h-20"></div>
@@ -187,33 +144,6 @@ const period = () => {
 
 
             <div class="md:w-1/2 overflow-y-auto  h-72 md:h-auto w-full mb-4 px-4  py-5">
-<<<<<<< HEAD
-                <span class="px-3 font-bold absolute  z-10 bg-blue-700 text-white rounded-lg shadow-lg py-1 ">
-                    Demandes non traitées
-                </span>
-                <ul>
-                    <Link v-for="demande,index in all_demandes" :key="index" class="">
-                    <ListElement :date="new Date(demande.created_at).toLocaleDateString()" :objet="demande.objet"
-                        class="hover:scale-105  transition-all relative bg-gray-100 hover:z-20"
-                        :auteur="demande.auteur" />
-                    </Link>
-                </ul>
-            </div>
-
-            <div class="md:w-1/2 overflow-y-auto  h-72 md:h-auto w-full mb-4 px-4 py-5">
-                <span class="px-3 font-bold absolute  z-10 bg-amber-500 text-white rounded-lg shadow-lg py-1 ">Mes
-                    demandes
-                </span>
-                <ul v-if="mes_demandes.length">
-                    <Link v-for="demande,index in mes_demandes" class="" :key="index">
-                    <ListElement :date="new Date(demande.created_at).toLocaleDateString()" :objet="demande.objet"
-                        class="hover:scale-105 transition-all relative bg-gray-200 hover:z-20"
-                        :auteur="demande.auteur" />
-                    </Link>
-                </ul>
-                <div v-else>
-                    pas de demandes insbi
-=======
                 <Link class="px-3 font-bold absolute  z-10 bg-dark text-white rounded-lg shadow-lg py-1 " >
                     Demandes non traitées
                 </Link >
@@ -245,7 +175,6 @@ const period = () => {
                 <div class="flex py-5 justify-center items-center flex-col-reverse md:flex-row" v-else>
                     <img :src="`/storage/assets/images/emptyFolder.webp`" class="w-1/2 h-1/2" alt="">
                     <span class="font-bold">Vous n'avez aucune demande</span>
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
                 </div>
             </div>
         </div>

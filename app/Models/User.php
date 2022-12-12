@@ -26,15 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var string[]
      */
     protected $fillable = [
-<<<<<<< HEAD
         'name', 'email', 'password','isAdmin','role','profile_photo_path'
-=======
-<<<<<<< HEAD
-        'name', 'email', 'password','isAdmin'
-=======
-        'name', 'email', 'password','isAdmin','role'
->>>>>>> a0db9d6fd5a31e336cf23ebf81d7f00d697d1195
->>>>>>> 55eecffa7e44b946ac5fa007165d181af020a851
     ];
 
     /**
@@ -67,13 +59,4 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
 
-    /**
-     * Get all of the demandes for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function demandes()
-    {
-        return $this->hasMany(Demande::class);
-    }
 }
