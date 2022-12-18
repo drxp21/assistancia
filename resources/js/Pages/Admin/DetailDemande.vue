@@ -5,6 +5,7 @@ import DangerButton from '../../Components/DangerButton.vue'
 import SecondaryButton from '../../Components/SecondaryButton.vue'
 import ConfirmationModal from '../../Components/ConfirmationModal.vue'
 import InputError from '../../Components/InputError.vue'
+import InputLabel from '../../Components/InputLabel.vue'
 import MySnackbar from '../../Components/MySnackbar.vue'
 import { usePage, useForm } from '@inertiajs/inertia-vue3'
 import { Inertia } from '@inertiajs/inertia'
@@ -122,10 +123,11 @@ const rejet = () => {
             </div>
             <form class="w-full" v-else @submit.prevent="sendFeedback()">
                 <hr class="my-5">
+                <InputLabel for="feedback" value="Feedback" />
                 <textarea
                     class="w-full border-2 border-gray-300 rounded-lg focus:ring-0 focus:border-gray-400 px-9 py-5 h-44"
                     :placeholder="demande.feedback ? demande.feedback : 'Votre feedback ou motif de rejet ici'"
-                    v-model="form.feedback" required>
+                    v-model="form.feedback" required :disabled="demande.status != 'en_cours'">
 
                 </textarea>
                 <InputError :message="form.errors.feedback" />

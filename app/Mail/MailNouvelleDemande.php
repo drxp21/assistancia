@@ -19,11 +19,14 @@ class MailNouvelleDemande extends Mailable
      *
      * @return void
      */
-    public function __construct($nom,$objet)
+    public function __construct($nom,$objet,$contenu)
     {
         $this->nom = $nom;
         $this->objet = $objet;
+        $this->contenu = $contenu;
+
     }
+
 
     /**
      * Get the message envelope.
@@ -48,7 +51,8 @@ class MailNouvelleDemande extends Mailable
             markdown: 'emails.MailNouvDemande',
             with:[
                 'nom'=>$this->nom,
-                'objet'=>$this->objet
+                'objet'=>$this->objet,
+                'contenu'=>$this->contenu,
             ]
         );
     }

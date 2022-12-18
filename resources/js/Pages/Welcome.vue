@@ -52,18 +52,18 @@ const submit = () => {
         <div class="grid max-w-screen-xl px-4 pt-1 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-2">
             <div class="mr-auto place-self-center lg:col-span-7">
                 <h1 class="max-w-2xl mt-24 mb-24 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl text-black">Bienvenue a Assistancia</h1>
-                <h3 class="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-3xl xl:text-6xl text-black">Building digital <br>products & brands.</h3>
-                <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-600">This free and open-source landing page template was built using the utility classes from <a href="https://tailwindcss.com" class="hover:underline">Tailwind CSS</a> and based on the components from the <a href="https://flowbite.com/docs/getting-started/introduction/" class="hover:underline">Flowbite Library</a> and the <a href="https://flowbite.com/blocks/" class="hover:underline">Blocks System</a>.</p>
+                <h3 class="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-3xl xl:text-6xl text-black">Faire facilement  vos reclamations <br>sans deplacement.</h3>
+                <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-600">cette application vous permet de faire vos reclamations a tout moment avec un traitement rapide et efficace.Vous pouvez aussi voir l'historique de vos demandes avec leurs status . <a href="https://tailwindcss.com" class="hover:underline"></a>  <a href="https://flowbite.com/docs/getting-started/introduction/" class="hover:underline"></a> <a href="https://flowbite.com/blocks/" class="hover:underline"></a></p>
                 <div class="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
                     <Link v-if="$page.props.user" :href="route('dashboard')"
-                                        class="text-sm text-white dark:text-white-500 bg-dark p-1.5">PAGE DEMANDES</Link>
+                                        class="text-sm text-white dark:text-white-500 bg-dark p-1.5">TABLEAU DE BORD</Link>
 
                                         <template v-else>
             <PrimaryButton class="mr-4" @click="connectmodal=true">
                 SE CONNECTER
             </PrimaryButton>
 
-            <PrimaryButton  v-if="canRegister" class="mr-4" @click="Thieur()">
+            <PrimaryButton  v-if="canRegister" :href="route('register')" class="mr-4" @click="Thieur()">
               S'INSCRIRE
             </PrimaryButton>
             </template>

@@ -1,8 +1,11 @@
 <script setup>
 import AppLayout from '../../Layouts/AppLayout.vue';
 import { ref, computed } from 'vue';
-import axios from 'axios'
+import axios from 'axios';
+import PrimaryButton from '../../Components/PrimaryButton.vue'
 import { Link } from '@inertiajs/inertia-vue3';
+import InputError from '../../Components/InputError.vue';
+import InputLabel from '../../Components/InputLabel.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 import { defineProps, onMounted, reactive } from 'vue'
 import { Chart as ChartJS, registerables } from 'chart.js'
@@ -24,7 +27,7 @@ var data = reactive({
     ],
     datasets: [{
         data: [],
-        backgroundColor: ['#036e15', '#6875F5', '#bf0702'],
+        backgroundColor: ['#875f5f', '#b88c8c', '#593535'],
         hoverOffset: 4
     }]
 });
@@ -43,19 +46,14 @@ const ChartOptions = {
 }
 
 
-var form = useForm({
+const form   = useForm({
     name: '',
     email: '',
-    photo: null
-})
+});
 
-const Changer = (e) => {
-    console.log("selected file", e.target.files[0])
-    form.photo = e.target.files[0];
-}
 
 const add = () => {
-    form.post(route('new.admin'), {
+    form.post (route('new.admin'), {
         onSuccess: () => {
             msg.value = "Nouvel admin crée avec succes !"
             type.value = "success"
@@ -81,7 +79,7 @@ const props = defineProps({
 
 </script>
 <template>
-    <AppLayout title="Dashboard Admin" :lien="id">
+    <AppLayout title="Dashboard Super-Admin" :lien="id">
         <div class="p-12  sm:px-20 text-black border-b border-gray-200  mt-7 mx-5 rounded-md shadow-2xl bg-gray">
             <div class="flex items-center text-3xl lg:text-5xl font-bold">
                 <h1>Bienvenue {{$page.props.user.name}}</h1>
@@ -97,77 +95,108 @@ const props = defineProps({
         </div>
         <!-- les stats -->
 
-        <div class=" p-12 flex flex-col items-center mx-5 border-b border-gray-200  sm:px-20 relative justify-center bg-white shadow-2xl   mt-5 "
-            id="stat">
-            <div class="flex flex-col items-center uppercase p-6 mb-6  text-xl font-extrabold">
-                les statistiques de l'entreprise.
-            </div>
-            <div class="grid grid-cols-1     lg:grid-cols-2" v-if="data.datasets[0].data.length">
+
+        <div
+            class="md:px-20 sm:px-20 bg-white border-b border-gray-200  mt-7 mx-5 rounded-md shadow-lg flex flex-col md:flex-row flex-wrap gap-4 py-12" id="stat">
+            <span class="w-full text-center h-[5%] ">
+                <h1 class="font-bold text-2xl my-3">les statistiques de l'entreprise.</h1>
+
+
+            </span>
+            <div class="flex-[2] md:h-[95%] h-[45%] md:w-7 w-full" v-if="data.datasets[0].data.length">
                 <Doughnut :chartData="data" :chart-options="ChartOptions" />
+            </div>
+            <div class="flex flex-wrap animate-pulse items-center justify-center flex-[2] md:h-[95%] h-[45%] md:w-7 w-full"
+                v-else>
+                <div class="w-96 my-3  h-6 rounded-md flex justify-between">
+                    <div class="bg-gray-300 w-16 rounded-md shadow-lg">
 
+                    </div>
+                    <div class="bg-gray-300 w-16 rounded-md shadow-lg">
 
+                    </div>
+                    <div class="bg-gray-300 w-16 rounded-md shadow-lg">
 
-                <div class="flex-[3] md:h-[95%] h-[45%]  gap-4 flex md:flex-wrap md:p-12 md:justify-end justify-center  sm:px-0"
-                    v-if="data.datasets[0].data.length">
-                    <Link
-                        class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-[#036e15] md:p-5 p-3 md:w-screen  hover:scale-105 transition-all">
-                    <span class="text-xs lg:text-xl">
-                        Traitées
-                    </span>
-                    <span class="w-full mt-2">
-                        <strong class="text-3xl ">{{ data.datasets[0].data[0] }}</strong>
-                    </span>
-                    </Link>
-                    <Link
-                        class="flex flex-wrap sm: shadow-lg rounded-md border-l-8 border-l-[#6875F5] md:p-5 p-3 md:w-screen hover:scale-105 transition-all">
-                    <span class="w-full text-xs lg:text-xl">
-                        En cours
-                    </span>
-                    <span class="w-full mt-2">
-                        <strong class="text-3xl "> {{ data.datasets[0].data[1]}} </strong>
-
-                    </span>
-                    </Link>
-                    <Link
-                        class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-[#bf0702] md:p-5 p-3 md:w-screen hover:scale-105 transition-all">
-                    <span class="w-full text-xs lg:text-xl">
-                        Rejetées
-                    </span>
-                    <span class="w-full mt-2">
-                        <strong class="text-3xl"> {{ data.datasets[0].data[2]}} </strong>
-
-                    </span>
-                    </Link>
+                    </div>
                 </div>
+                <div class="w-72 bg-gray-300 h-72 rounded-full ">
+                </div>
+                <div class="w-44 my-3 bg-gray-300 h-6 rounded-md shadow-lg ">
+                </div>
+            </div>
+
+            <div class="flex-[3] md:h-[95%] h-[45%]  gap-4 flex md:flex-wrap md:p-12 md:justify-end justify-center sm:px-0"
+                v-if="data.datasets[0].data.length">
+
+                <Link :href="route('admin.demandes')"
+                    class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-primary md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
+                <span class="w-full">
+                    Traitées
+                </span>
+                <span class="w-full">
+                    <strong class="text-3xl">{{ data.datasets[0].data[0] }}</strong>
+                </span>
+
+                </Link>
+                <Link :href="route('admin.demandes')"
+                    class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-light md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
+
+                    <span class="w-full">
+                    En cours
+                </span>
+
+                <span class="w-full">
+                    <strong class="text-3xl"> {{ data.datasets[0].data[1]}} </strong>
+
+                </span>
+
+            </Link>
+
+            <Link :href="route('admin.demandes')"
+                    class="flex flex-wrap shadow-lg rounded-md border-l-8 border-l-dark md:p-5 p-3 md:w-1/3 hover:scale-105 transition-all">
+                <span class="w-full">
+                    Rejetées
+                </span>
+                <span class="w-full">
+                    <strong class="text-3xl"> {{ data.datasets[0].data[2]}} </strong>
+
+                </span>
+
+            </Link>
+            </div>
+
+
+
+            <div class="flex-[3] md:h-[95%] h-[45%]  gap-4 flex md:flex-wrap md:p-12 md:justify-end justify-center sm:px-0 animate-pulse"
+                v-else>
+                <div class="flex flex-wrap shadow-lg rounded-md bg-gray-300 md:p-5 p-3 md:w-1/3 w-1/4 h-20"></div>
+                <div class="flex flex-wrap shadow-lg rounded-md bg-gray-300 md:p-5 p-3 md:w-1/3 w-1/4 h-20"></div>
+                <div class="flex flex-wrap shadow-lg rounded-md bg-gray-300 md:p-5 p-3 md:w-1/3 w-1/4 h-20"></div>
             </div>
         </div>
         <!-- les profils -->
-
-        <div class="p-2  sm:px-20 text-black border-b border-gray-200 h-[45rem] lg:h-[25rem] mt-7 mx-5 shadow-2xl rounded-md  bg-white"
-            id="admin">
-            <div class="p-8 mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
-                <div class="w-[29rem] h-[13rem] mr-10 flex flex-col">
-                    <span class="text-3xl font-bold mb-4">Nos Administrateurs</span>
-                    <span class="text-xl text-gray-500 ">
-                        Les administrateurs de l'entreprise sont les <br>seules personnes capables
-                        de traiter ou de<br> rejeter les demandes faites par les clients.
-                    </span>
+        <div class="p-2  sm:px-20 text-black flex flex-col md:flex-row flex-wrap border-b border-gray-200 h-full lg:h-full mt-7 mx-5 shadow-2xl rounded-md   bg-white" id="admin" >
+            <div class="flex-[2] md:h-[95%] h-[45%] md:w-7 w-full mt-14">
+                <div class="text-2xl lg:text-3xl font-bold ">Nos Administrateurs</div>
+                <div class="text-xl lg:text-2xl text-gray-500 mt-5">
+                    Les administrateurs de l'entreprise sont les seules personnes capables
+                    de traiter ou de rejeter les demandes faites par les clients.
                 </div>
-                <div class="grid gap-4 lg:grid-cols-2 lg:gap-16 ">
-                    <div class="flex" v-for="user in users" :key="user.id">
-                        <img :src="user.profile_photo_url" alt="photo"
-                            class="block rounded-full w-24 h-24 object-cover object-center mr-5">
+            </div>
+            <div class="flex-[2] md:h-[95%] h-[70%] md:w-7 w-full gap-4 mt-10 flex md:flex-wrap md:p-8 md:justify-end justify-center sm:px-0">
+                <div class="grid gap-6 lg:grid-cols-2 lg:gap-16">
+                    <div class="flex hover:scale-95 transition-all" v-for="user in users" :key="user.id">
+                        <img :src="user.profile_photo_url" alt="photo" class="block rounded-full w-24 h-24 object-cover object-center mr-5">
 
                         <div class="flex flex-col">
-                            <Link :href="route('superadmin.user',user.id)" class="text-2xl font-bold">{{user.name}}
-                            </Link>
+                            <a :href="route('superadmin.user',user.id)"  class="text-2xl font-bold">{{user.name}}</a>
                             <span class="text-gray-800">Administrateurs a Assistancia</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="flex items-center mx-5 mb-10 rounded-md max-h-screen mt-1" id="add">
+        <div class="flex items-center mx-5 mb-10 rounded-md max-h-screen mt-5" id="add">
             <div class="flex-1 h-full max-w-[79rem] mx-auto bg-white rounded-lg shadow-xl">
                 <div class="flex flex-col md:flex-row">
                     <div class="h-32 md:h-auto md:w-1/2">
@@ -189,25 +218,31 @@ const props = defineProps({
                             <h1 class="mb-4 text-2xl font-bold text-center text-gray-700">
                                 Nouveau administrateur
                             </h1>
-                            <form method="POST" @submit.prevent="add" enctype="multipart/form-data">
-                                <div>
-                                    <label class="block text-sm">
-                                        Nom
-                                    </label>
-                                    <TextInput type="text" v-model="form.name"
+                            <form @submit.prevent="add">
+                                <div class="mt-4">
+                                   Nom
+                                    <input
+                                        v-model="form.name"
+                                        type="text"
                                         class="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                                        placeholder="">
-                                    </TextInput>
+                                        required
+                                    />
+                                    <InputError  :message="form.errors.name" />
                                 </div>
-                                <div>
-                                    <label class="block mt-4 text-sm">
-                                        E-mail
-                                    </label>
-                                    <TextInput
+
+                                <div class="mt-4">
+                                    Email
+                                    <input
+                                        id="email"
+                                        v-model="form.email"
+                                        type="email"
                                         class="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                                        placeholder="" type="email" v-model="form.email">
-                                    </TextInput>
+                                        required
+                                        autocomplete=""
+                                    />
+                                    <InputError  :message="form.errors.email" />
                                 </div>
+
 
                                 <p class="mt-4">
                                     <span
@@ -217,11 +252,12 @@ const props = defineProps({
                                 </p>
 
 
-                                <button
-                                    class="block bg-primary w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150  border border-transparent rounded-lg active:bg-primary hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue"
-                                    type="submit">
+                                <PrimaryButton
+                                    class="block bg-primary w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150  border border-transparent rounded-lg active:bg-primary hover:bg-dark hover:text-black hover:border-b hover:border-black focus:outline-none focus:shadow-outline-blue"
+                                    type="submit"
+                                    :disabled="form.processing">
                                     Creer
-                                </button>
+                                </PrimaryButton>
 
                             </form>
 

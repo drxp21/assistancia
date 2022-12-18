@@ -33,7 +33,12 @@ class DemandeController extends Controller
 
     public function admin_handle_demande(Request $request)
     {
-        Demande::findOrFail($request->demande_id)->update(['status' => 'en_cours', 'admin_id' => $request->admin_id]);
+        Demande::findOrFail($request->demande_id)
+        ->update(
+            [
+                'status' => 'en_cours',
+                'admin_id' => $request->admin_id
+            ]);
     }
 
 
@@ -67,6 +72,16 @@ class DemandeController extends Controller
         return Inertia::render('Client/DetailDemande', ['demande' => $demande]);
     }
 
+    public function client_show_demandes()
+    {
+        $all_demandes = Demande::all();
+                $mes_demandes = Demande::where('auteur_id', Auth::user()->id)->latest()->get();
+                foreach ($mes_demandes as $demande) {
+                    $demande->auteur = User::find($demande->auteur_id)->name;
+                }
+                return Inertia::render('Client/Mesdemandes', ['all_demandes' => $all_demandes, 'mes_demandes' => $mes_demandes]);
+    }
+
 
 
     public function client_create_demande()
@@ -92,8 +107,8 @@ class DemandeController extends Controller
         ]);
         $admins = User::where('role', 'admin')->latest()->get();
         foreach ($admins as $admin) {
-            Mail::to($admin->email)->send(new MailNouvelleDemande($admin->name, $request->objet));
+            Mail::to($admin->email)->send(new MailNouvelleDemande($admin->name, $request->objet,$request->contenu));
         }
-        return redirect()->route('dashboard');
+        return redirect()->route('show.demande');
     }
 }

@@ -12,50 +12,72 @@ const props = defineProps({
 <template>
     <AppLayout title="Mes demandes">
         <div
-            class="md:px-20 sm:px-20 bg-white border-b border-gray-200  mt-7 mx-5 rounded-md shadow-lg flex flex-col md:flex-row flex-wrap gap-4 py-12">
+            class="md:px-20 px-4 bg-white border-b border-gray-200  mt-7 mx-5 rounded-md shadow-lg flex flex-col md:flex-row flex-wrap gap-4 py-12">
             <h1 class="font-bold text-2xl text-center w-full">Mes demandes</h1>
             <ul v-if="mes_demandes.length" class="w-full">
                 <li class="bg-dark mb-2 py-2 px-3 rounded-lg flex justify-around">
 
-                    <span class="text-white font-bold text-center  hidden md:block">Date</span>
-                    <span class="text-white font-bold text-center ">Auteur</span>
-                    <span class="whitespace-nowrap overflow-hidden text-ellipsis text-white font-bold text-center ">Objet</span>
-                    <span class="text-white font-bold text-center ">Status</span>
-                    <span class="text-white font-bold text-center ">Consulter</span>
+                    <span class="text-white font-bold text-center w-1/4 md:w-1/5  hidden md:block">Date</span>
+                    <span class="text-white font-bold text-center w-1/4 md:w-1/5">Auteur</span>
+                    <span
+                        class="whitespace-nowrap overflow-hidden text-ellipsis text-white font-bold text-center w-1/4 md:w-1/5">Objet</span>
+                    <span class="text-white font-bold text-center w-1/4 md:w-1/5">Status</span>
+                    <span class="text-white font-bold text-center w-1/4 md:w-1/5">Consulter</span>
 
                 </li>
 
-                <li v-for="demande in mes_demandes" class="bg-gray-200 mb-1 py- px-3 rounded-lg flex justify-around">
-                    <span class="overflow-hidden w-1/4 md:w-1/5 text-ellipsis px-4 hidden md:block text-gray-400 py-3">
+                <li v-for="demande in mes_demandes" class="bg-gray-100 mb-2 rounded-lg flex justify-around">
+
+                    <span
+                        class="overflow-hidden text-ellipsis w-1/4 md:w-1/5 hidden md:block text-gray-400 py-3 text-center">
                         {{ new Date(demande.created_at).toLocaleDateString() }}
                     </span>
-                    <span class="overflow-hidden text-start text-xs text-gray-700 w-1/4 md:w-1/5 text-ellipsis px-4 py-3">
+
+                    <span class="overflow-hidden text-xs text-gray-700 w-1/4 md:w-1/5 text-ellipsis text-center py-3 items-center flex justify-center">
                         {{ demande.auteur }}
                     </span>
 
 
-                    <span class="whitespace-nowrap overflow-hidden text-start w-1/4 md:w-1/5 text-ellipsis px-4 font-bold flex items-center py-3">
-                        {{ demande.objet }}
+                    <span
+                        class="overflow-hidden text-ellipsis truncate text-center w-1/4 md:w-1/5  px-4 font-bold flex items-center py-3 hover:overflow-auto hover:z-10">
+                        <span class="  hover:backdrop-blur-md">
+
+                            {{ demande.objet }}
+                        </span>
                     </span>
-                    <span class="text-start w-1/4 md:w-1/5 text-xs text-amber-600 font-bold  rounded-lg  flex items-center py-3" v-if="
-                    demande.status=='en_cours'">
+
+                    <span
+                        class="text-center w-1/4 md:w-1/5 text-xs text-amber-400 font-bold  rounded-lg  flex items-center justify-center py-3"
+                        v-if="
+                        demande.status=='en_cours'">
                         En cours de traitement
                     </span>
-                    <span class="text-start w-1/4 md:w-1/5 text-xs text-green-700 font-bold  rounded-lg  flex items-center py-3"
+
+                    <span
+                        class="text-center w-1/4 md:w-1/5 text-xs text-green-500 font-bold  rounded-lg  flex items-center justify-center py-3"
                         v-if="demande.status=='traite'">
                         Traitée
                     </span>
-                    <span class="text-start w-1/4 md:w-1/5 text-xs text-red-700 font-bold  rounded-lg flex items-center py-3"
+
+                    <span
+                        class="text-center w-1/4 md:w-1/5 text-xs text-red-700 font-bold  rounded-lg flex items-center justify-center py-3"
                         v-if="demande.status=='rejete'">
                         Rejetée
                     </span>
-                    <Link class="flex items-center py-3" :href="route('admin.demande',demande.id)">
-                    Consulter
-                    </Link>
+
+                    <span class="flex items-center py-3 w-1/4 md:w-1/5 justify-center" >
+                        <Link class="px-2 md:px-4 py-1 text-sm text-indigo-600 bg-indigo-200 rounded-full" :href="route('admin.demande',demande.id)">
+
+                            Consulter
+                        </Link>
+                    </span>
                 </li>
             </ul>
-            <div v-else>
-                pas de demandes insbi
+            <div v-else class="flex flex-col md:flex-row items-center">
+                <img :src="`/storage/assets/images/no-results.png`" alt="" class="w-56 h-56">
+                <span class="font-semibold">
+                    Vous ne prenez en charge aucune deamnde pour le moment
+                </span>
             </div>
         </div>
     </AppLayout>

@@ -39,8 +39,8 @@ const submit = () => {
     <AppLayout title="Dashboard Admin">
 
 
-        <div class="p-6 sm:px-20 bg-white border-b border-gray-200  mt-7 mx-5 rounded-md shadow-lg">
-            Formulaires de demande
+        <div class="p-6 sm:px-20 bg-dark text-white border-b border-gray-200  mt-7 mx-5 rounded-md shadow-lg">
+            Formulaires de demandes
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 place-items-center md:ml-6 mt-8">

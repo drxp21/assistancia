@@ -18,6 +18,7 @@ class CreateDemandesTable extends Migration
         Schema::create('demandes', function (Blueprint $table) {
             $table->id();
             $table->enum('status', ["en_attente","en_cours", "traite", "rejete"]);
+
             $table->longText('contenu');
             $table->longText('feedback')->nullable();
             $table->string('objet');

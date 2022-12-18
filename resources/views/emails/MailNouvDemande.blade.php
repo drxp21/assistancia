@@ -1,12 +1,26 @@
 <x-mail::message>
-# Bonjour {{ $nom }}
-{{ $objet }}
-The body of your message.
+# Bonjour {{ $nom }} <br>
+
+nouvelle demande disponible
+<br>
+
+
+<h1 > <u>{{$objet}}</u></h1>
+<br>
+{{$contenu}}
+<br>
+<br>
+aller dans votre page pour gerer la demande
+
+<br>
+<a href="{{ route('welcome') }}">
+ assistancia
+</a>
 
 <x-mail::button :url="''">
-Button Text
+voir
 </x-mail::button>
 
-Thanks,<br>
+merci,<br>
 {{ config('app.name') }}
 </x-mail::message>

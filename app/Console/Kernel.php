@@ -25,24 +25,24 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             $admins = User::where('role', 'admin')->get();
             $demandes = Demande::where('admin_id', null)
-                ->whereDate('created_at', Carbon::now()->subDays(2))
-                ->orWhereDate('created_at', Carbon::now()->subDays(4))
-                ->orWhereDate('created_at', Carbon::now()->subDays(7))
+                ->whereDate('created_at','<' ,Carbon::now()->subDays(2))
+                ->orWhereDate('created_at','<', Carbon::now()->subDays(4))
+                ->orWhereDate('created_at','<', Carbon::now()->subDays(7))
                 ->get();
             foreach ($admins as $admin) {
                 Mail::to($admin->email)->send(new EnAttente($admin->name, $demandes));
             }
-        })->daily();
+        })->everyMinute();
 
         $schedule->call(function () {
             $admins = User::where('role', 'admin')->get();
             foreach ($admins as $admin) {
-                $demandes=Demande::where('admin_id',$admin->id)->where('status','en_cours')->get();
-                if(!empty($demandes)){
-                    Mail::to($admin->email)->send(new EnCours($admin->name,$demandes));
+                $demandes = Demande::where('admin_id', $admin->id)->where('status', 'en_cours')->whereDate('created_at', '<', Carbon::now()->subDays(2))->get();
+                if ($demandes->count() > 0) {
+                    Mail::to($admin->email)->send(new EnCours($admin->name, $demandes));
                 }
             }
-        })->daily();
+        })->everyMinute();
     }
 
     /**

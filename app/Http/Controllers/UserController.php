@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Demande;
 use Illuminate\Http\Request;
@@ -14,25 +15,16 @@ class UserController extends Controller
     public function superadmin_new_admin(Request $request)
     {
 
-        $request->validate([
+        request()->validate([
             'name' => 'required',
             'email' => 'required',
-            'profile_photo_path' => 'image|max:1024'
         ]);
-        // Créer le programme en excluant la photo
-        $user = new User($request->except('photo'));
-        $user->password = Hash::make('password');
-        $user->role = 'admin';
-        // verifier si la photo est bien passée en paramètre
-        if ($request->file('photo')) {
-            // recuperation de l'extension de la photo
-            $extension = $request->file('photo')->getClientOriginalExtension();
-            // stockage et recuperation du lien de la photo
-            $path = $request->file('photo')->storeAs('public/profile-photos', uniqid() . '.' . $extension);
-            // assignation du chemin à l'objet photo
-            $user->profile_photo_path = $path;
-        }
-        $user->save();
+       User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>Hash::make('password'),
+            'role'=>'admin'
+       ]);
     }
 
     public function superadmin_admin_details_show(int $id)
@@ -47,6 +39,8 @@ class UserController extends Controller
         $users->demandes = Demande::where('admin_id', Auth::user()->id)->get();
         return Inertia::render('SuperAdmin/Dashboard', ['users' => $users]);
     }
+
+
 
 
 }
