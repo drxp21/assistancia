@@ -23,7 +23,7 @@ const props = defineProps({
             Historiques de vos demandes
         </div>
 
-        <h3> Vous recevrez un mail des que une demande est traite.</h3>
+
 
         <div class="   grid grid-cols-1 place-items-center md:ml-6  ">
 
@@ -36,8 +36,8 @@ const props = defineProps({
                 <div v-if="mes_demandes.length" class=" p-10 mt-2 h-5/6 rounded  ">
 
 
-                    <ul v-for="demande,index in mes_demandes" class="" :key="index">
-                        <Link :href="route('details.demandes',demande.id)">
+                    <ul v-for="demande, index in mes_demandes" class="" :key="index">
+                        <Link :href="route('details.demandes', demande.id)">
                         <ListElement :date="new Date(demande.created_at).toLocaleDateString()" :objet="demande.objet"
                             class="hover:scale-105 transition-all relative bg-gray-200 hover:z-20"
                             :auteur="demande.auteur" :status="demande.status" />
@@ -56,8 +56,6 @@ const props = defineProps({
                     <div> <img class="max-w-full w-2/3  cover  " src="../../../../public/images/no-results.png"
                             alt="images pas de resultat">
                     </div>
-
-
                 </div>
             </div>
         </div>

@@ -48,12 +48,12 @@ Route::middleware([
                  $nb_dem_ec= $demandes_en_cours->count();
                  $demandes_rejete=Demande::where([['auteur_id', Auth::user()->id],['status', 'rejete']])->get();
                  $nb_dem_r= $demandes_rejete->count();
-
+                 $user = User::find(Auth::user()->id)->where('role','client')->get();
 
                 // foreach ($mes_demandes as $demande) {
                 //     $demande->auteur = User::find($demande->auteur_id)->name;
                 // }
-                return Inertia::render('Client/Dashboard',['nbre_demande_en_att' => $nb_dem_at,'nbre_demande_en_cours' => $nb_dem_ec,'nbre_demande_rejete' => $nb_dem_r]);
+                return Inertia::render('Client/Dashboard',['nbre_demande_en_att' => $nb_dem_at,'nbre_demande_en_cours' => $nb_dem_ec,'nbre_demande_rejete' => $nb_dem_r,'user'=>$user]);
 
 
                 break;

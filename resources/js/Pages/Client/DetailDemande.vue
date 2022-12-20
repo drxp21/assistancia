@@ -38,7 +38,7 @@ var form = useForm({
 <template>
     <AppLayout title="Details de la demande">
         <div class="md:px-44 px-10 bg-white border-b border-gray-200  mt-7 mx-5 rounded-md shadow-lg flex flex-col md:flex-row flex-wrap gap-4 py-12"
-            v-if="demande.admin_id==$page.props.user.id || demande.admin_id==null">
+          >
             <div class="w-full flex justify-between flex-wrap">
                 <span class="w-1/2">
                     {{ new Date(demande.created_at).toLocaleDateString("fr-FR", {

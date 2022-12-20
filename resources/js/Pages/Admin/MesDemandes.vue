@@ -26,7 +26,7 @@ const props = defineProps({
 
                 </li>
 
-                <li v-for="demande in mes_demandes" class="bg-gray-100 mb-2 rounded-lg flex justify-around">
+                <li v-for="demande in mes_demandes" :key="demande" class="bg-gray-100 mb-2 rounded-lg flex justify-around">
 
                     <span
                         class="overflow-hidden text-ellipsis w-1/4 md:w-1/5 hidden md:block text-gray-400 py-3 text-center">
@@ -74,7 +74,7 @@ const props = defineProps({
                 </li>
             </ul>
             <div v-else class="flex flex-col md:flex-row items-center">
-                <img :src="`/storage/assets/images/no-results.png`" alt="" class="w-56 h-56">
+                <img :src="`/storage/assets/images/no-results.png`" alt="" class="w-56 h-26">
                 <span class="font-semibold">
                     Vous ne prenez en charge aucune deamnde pour le moment
                 </span>

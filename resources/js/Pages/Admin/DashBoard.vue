@@ -148,7 +148,7 @@ const period = () => {
                     Demandes non traitées
                 </Link >
                 <ul v-if="all_demandes.length">
-                    <Link v-for="demande in all_demandes" :href="route('admin.demande',demande.id)">
+                    <Link v-for="demande in all_demandes" :key="demande.id" :href="route('admin.demande',demande.id)">
                     <ListElement :date="new Date(demande.created_at).toLocaleDateString()" :objet="demande.objet"
                         :status="demande.status" class="
                          relative bg-gray-100 hover:z-20"
@@ -166,7 +166,7 @@ const period = () => {
                     demandes
                 </Link>
                 <ul v-if="mes_demandes.length">
-                    <Link v-for="demande in mes_demandes" class="" :href="route('admin.demande',demande.id)">
+                    <Link v-for="demande in mes_demandes"  :key="demande.id" class="" :href="route('admin.demande',demande.id)">
                     <ListElement :date="new Date(demande.created_at).toLocaleDateString()" :objet="demande.objet"
                         :status="demande.status" class="hover:scale-105 transition-all relative bg-gray-200 hover:z-20"
                         :auteur="demande.auteur" />

@@ -175,15 +175,15 @@ const props = defineProps({
             </div>
         </div>
         <!-- les profils -->
-        <div class="p-2  sm:px-20 text-black flex flex-col md:flex-row flex-wrap border-b border-gray-200 h-full lg:h-full mt-7 mx-5 shadow-2xl rounded-md   bg-white" id="admin" >
-            <div class="flex-[2] md:h-[95%] h-[45%] md:w-7 w-full mt-14">
+        <div class="p-12  sm:px-20 text-black flex flex-col md:flex-row flex-wrap border-b border-gray-200 h-full lg:h-full mt-7 mx-5 shadow-2xl rounded-md   bg-white" id="admin" >
+            <div class="flex-[2] md:h-[95%] h-[45%] md:w-7 w-full mt-7">
                 <div class="text-2xl lg:text-3xl font-bold ">Nos Administrateurs</div>
                 <div class="text-xl lg:text-2xl text-gray-500 mt-5">
                     Les administrateurs de l'entreprise sont les seules personnes capables
                     de traiter ou de rejeter les demandes faites par les clients.
                 </div>
             </div>
-            <div class="flex-[2] md:h-[95%] h-[70%] md:w-7 w-full gap-4 mt-10 flex md:flex-wrap md:p-8 md:justify-end justify-center sm:px-0">
+            <div v-if="users.length" class="flex-[2] md:h-[95%] h-[70%] md:w-7 w-full gap-4 mt-10 flex md:flex-wrap md:p-8 md:justify-end justify-center sm:px-0">
                 <div class="grid gap-6 lg:grid-cols-2 lg:gap-16">
                     <div class="flex hover:scale-95 transition-all" v-for="user in users" :key="user.id">
                         <img :src="user.profile_photo_url" alt="photo" class="block rounded-full w-24 h-24 object-cover object-center mr-5">
